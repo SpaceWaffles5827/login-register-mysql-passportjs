@@ -9,7 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-client": "^1.0.1",
+    "express-session": "^1.17.3",
+    "mysql": "^2.18.1",
     "next": "12.2.5",
+    "nodemon": "^2.0.19",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },

@@ -38,8 +38,8 @@ app.post('/register', (req, res) => {
       return;
     }
     console.log("Connection established");
-    const query = "INSERT INTO `trends`.`users` (`username`, `password`) VALUES (?,?)";
-    const query2 = "SELECT * FROM trends.users where username = " + '"'+req.body.username+'"';
+    const query = "INSERT INTO `trends`.`accounts` (`account`, `password`) VALUES (?,?)";
+    const query2 = "SELECT * FROM trends.accounts where account = " + '"'+req.body.username+'"';
     connection.query(query2, async (err, rows) => {
       if (err) {console.log(err);}
       if (rows.length > 0) {res.send("User already exists");}
@@ -75,8 +75,6 @@ app.post('/login', (req, res, next) => {
 app.get('/getUser', (req, res) => {
   res.send(req.user);
 })
-
-
 
 
 

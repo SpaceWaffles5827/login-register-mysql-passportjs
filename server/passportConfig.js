@@ -11,8 +11,8 @@ module.exports = function(passport) {
                     return;
                 }
                 console.log("Connection established");
-                const query = "SELECT * FROM trends.account where username = " + '"'+username+'"';
-                connection.query(query, (err, rows) => {
+                const query = "SELECT * FROM userTest.account where username = ?";
+                connection.query(query, [username] ,(err, rows) => {
                     if(err)throw err;  
                     if(rows.length === 0) {
                         return done(null, false);
@@ -32,9 +32,8 @@ module.exports = function(passport) {
 
 
     passport.serializeUser((user, done) => {
-        done(null, user.account_id);
-    }
-    )
+        done(null, user.id);
+    })
 
 
     passport.deserializeUser((id, done) => {
@@ -44,11 +43,11 @@ module.exports = function(passport) {
                 return;
             }
             console.log("Connection established");
-            const query = "SELECT * FROM trends.account where account_id = ?";
+            const query = "SELECT * FROM userTest.account where id = ?";
             connection.query(query, [id] ,(err, rows) => {
                 if(err)throw err;  
                 const userInfo = {
-                    id: rows[0].accound_id,
+                    id: rows[0].id,
                     username: rows[0].username
                 }
                 done(null, userInfo);

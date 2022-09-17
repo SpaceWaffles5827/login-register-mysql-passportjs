@@ -38,9 +38,10 @@ app.post('/register', (req, res) => {
       return;
     }
     console.log("Connection established");
-    const query = "INSERT INTO `trends`.`accounts` (`account`, `password`) VALUES (?,?)";
-    const query2 = "SELECT * FROM trends.accounts where account = " + '"'+req.body.username+'"';
-    connection.query(query2, async (err, rows) => {
+    const query = "INSERT INTO `userTest`.`account` (`username`, `password`) VALUES (?,?)";
+    const query2 = "SELECT * FROM userTest.account where username = ?";
+
+    connection.query(query2, [req.body.username] ,async (err, rows) => {
       if (err) {console.log(err);}
       if (rows.length > 0) {res.send("User already exists");}
       if (rows.length === 0) {

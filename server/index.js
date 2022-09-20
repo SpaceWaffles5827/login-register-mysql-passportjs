@@ -32,27 +32,21 @@ require('./passportConfig')(passport);
 
 //routes
 app.post('/register', (req, res) => {
-  db.getConnection((err, connection) => {
-    if (err) {
-      console.log("Error connecting to Db");
-      return;
-    }
-    console.log("Connection established");
+  
     const query = "INSERT INTO `userTest`.`account` (`username`, `password`) VALUES (?,?)";
     const query2 = "SELECT * FROM userTest.account where username = ?";
-
-    connection.query(query2, [req.body.username] ,async (err, rows) => {
+  
+    db.query(query2, [req.body.username] ,async (err, rows) => {
       if (err) {console.log(err);}
       if (rows.length > 0) {res.send("User already exists");}
       if (rows.length === 0) {
         const hashedPassword =  await bycrypt.hash(req.body.password, 10);
-        connection.query(query, [req.body.username, hashedPassword], (err, rows) => {
+        db.query(query, [req.body.username, hashedPassword], (err, rows) => {
           if (err) {console.log(err);}
           res.send("User created");
         });
       }
     })
-  })
 })
 
 
@@ -65,11 +59,9 @@ app.post('/login', (req, res, next) => {
         if (err) {console.log(err);}
         res.send("User logged in");
         console.log(user);
-      }
-      )
+      })
     }
-  }
-  )(req, res, next); 
+  })(req, res, next); 
 })
 
 
